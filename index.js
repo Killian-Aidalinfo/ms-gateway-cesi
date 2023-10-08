@@ -1,7 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
-
 // Parsez la variable d'environnement MSConnect pour obtenir la liste des services
 const services = process.env.MSConnect.split(',');
 
@@ -24,6 +23,12 @@ const gateway = new ApolloGateway({
 
 const server = new ApolloServer({
     gateway,
+    //Add cors origin
+    cors: {
+        origin: '*',
+        credentials: false,
+    },
+    // Add the middleware to Apollo Server
     introspection: true,
     playground: true,
     subscriptions: false,
